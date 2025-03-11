@@ -1,31 +1,29 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="dark"> <!-- Mode sombre par défaut -->
+<html lang="fr" data-theme="dark">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Portfolio - Maxime</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Google Font Montserrat -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
   <!-- Boxicons (icônes) -->
-  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
   <style>
     /* =======================
        1) VARIABLES & BASE
     ======================== */
     :root {
-      /* Couleurs mode sombre */
-      --accent-color: #00bfa6;
+      --accent-color: #9b59b6; /* Violet */
       --bg-dark-start: #0c0c0c;
       --bg-dark-end: #171717;
-      --text-dark: #ffffff;
+      --text-dark: #f1f1f1;
       --header-bg-dark: rgba(0, 0, 0, 0.5);
       --card-bg-dark: rgba(255, 255, 255, 0.1);
       --section-curve-dark: #1f1f1f;
       --box-shadow-dark: 0 4px 20px rgba(0, 0, 0, 0.3);
 
-      /* Couleurs mode clair */
       --bg-light-start: #f0f0f0;
       --bg-light-end: #ffffff;
       --text-light: #333333;
@@ -34,7 +32,6 @@
       --section-curve-light: #e0e0e0;
       --box-shadow-light: 0 4px 20px rgba(0, 0, 0, 0.2);
 
-      /* Par défaut : sombre */
       --bg-start: var(--bg-dark-start);
       --bg-end: var(--bg-dark-end);
       --text-color: var(--text-dark);
@@ -47,7 +44,6 @@
       --hover-scale: 1.05;
       --base-font-size: 18px;
     }
-    /* Mode clair : <html data-theme="light"> */
     :root[data-theme="light"] {
       --bg-start: var(--bg-light-start);
       --bg-end: var(--bg-light-end);
@@ -56,6 +52,27 @@
       --card-bg: var(--card-bg-light);
       --section-curve-color: var(--section-curve-light);
       --box-shadow: var(--box-shadow-light);
+    }
+
+    /* Fond étoilé animé via pseudo-élément */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 200%;
+      height: 200%;
+      z-index: -2;
+      background: 
+        radial-gradient(white 1px, transparent 0),
+        radial-gradient(white 1px, transparent 0);
+      background-size: 100px 100px, 150px 150px;
+      background-position: 0 0, 50px 50px;
+      opacity: 0.2;
+      animation: moveStars 60s linear infinite;
+    }
+    @keyframes moveStars {
+      from { transform: translate(0, 0); }
+      to { transform: translate(-50%, -50%); }
     }
 
     /* RESET & BASE */
@@ -84,17 +101,11 @@
     }
 
     /* =======================
-       2) ANIMATIONS
+       2) KEYFRAMES
     ======================== */
     @keyframes fadeUp {
-      0% {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     /* =======================
@@ -120,16 +131,8 @@
     .logo span {
       color: var(--accent-color);
     }
-    /* Menu burger (checkbox hack) */
-    #menu-toggle {
-      display: none;
-    }
-    .burger-icon {
-      display: none;
-      font-size: 1.8rem;
-      color: var(--text-color);
-      cursor: pointer;
-    }
+    #menu-toggle { display: none; }
+    .burger-icon { display: none; font-size: 1.8rem; color: var(--text-color); cursor: pointer; }
     .nav-menu {
       display: flex;
       align-items: center;
@@ -157,13 +160,13 @@
       left: 0;
       transform: translateX(0);
     }
-    /* Bouton switch thème */
     .theme-toggle {
       background: none;
       border: none;
       cursor: pointer;
       font-size: 1.5rem;
     }
+    .theme-toggle i { color: #ffffff; }
 
     /* =======================
        4) HOME (ACCUEIL)
@@ -174,7 +177,7 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      padding-top: 80px;
+      padding-top: 120px;
       animation: fadeUp 1s ease forwards;
       opacity: 0;
     }
@@ -205,51 +208,50 @@
       object-fit: cover;
       border-radius: 50%;
       border: 8px solid var(--accent-color);
-      box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 25px rgba(0,0,0,0.5);
       transition: transform var(--transition-speed), box-shadow var(--transition-speed);
     }
     .home-img img:hover {
       transform: scale(1.07) rotate(2deg);
-      box-shadow: 0 0 35px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 0 35px rgba(0,0,0,0.7);
     }
-    .home-content h1 {
-      font-size: 2.6rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
+    .home-content h1 { font-size: 2.6rem; font-weight: 700; margin-bottom: 0.8rem; }
+    .home-content h1 span { color: var(--accent-color); }
+    .home-content h3 { font-size: 1.5rem; color: #b8ffef; margin-bottom: 1rem; }
+    .home-content p { max-width: 700px; font-size: 1.2rem; line-height: 1.6; margin: 0 auto 1.5rem; }
+    .social-icons { display: flex; gap: 1.5rem; justify-content: center; margin-top: 1rem; }
+    .social-icons a { font-size: 1.8rem; color: var(--accent-color); transition: transform 0.3s; }
+    .social-icons a:hover { transform: scale(1.15); }
+
+    /* =======================
+       5) TITRES AVEC SOULIGNAGE CENTRÉ
+    ======================== */
+    h2 {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 20px;
     }
-    .home-content h1 span {
-      color: var(--accent-color);
+    h2::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px; /* Soulignage initial court */
+      height: 3px;
+      background: var(--accent-color);
+      transition: width 0.3s ease-in-out;
     }
-    .home-content h3 {
-      font-size: 1.5rem;
-      color: #b8ffef;
-    }
-    .home-content p {
-      max-width: 700px;
-      font-size: 1.2rem;
-      line-height: 1.6;
-      margin: 0 auto;
-    }
-    .social-icons {
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-    }
-    .social-icons a {
-      font-size: 1.8rem;
-      color: var(--accent-color);
-      transition: transform 0.3s;
-    }
-    .social-icons a:hover {
-      transform: scale(1.15);
+    h2:hover::after {
+      width: 100%;
     }
 
     /* =======================
-       5) SECTIONS GÉNÉRALES
+       6) SECTIONS GÉNÉRALES
     ======================== */
     .skills-section {
       width: 100%;
-      padding: 80px 5%;
+      padding: 100px 5%;
       text-align: center;
       position: relative;
       animation: fadeUp 1s ease forwards;
@@ -257,7 +259,7 @@
     }
     .skills-section:not(:first-of-type) {
       margin-top: -80px;
-      padding-top: 160px;
+      padding-top: 180px;
     }
     .skills-section::before {
       content: "";
@@ -270,16 +272,12 @@
       clip-path: ellipse(70% 100% at 50% 100%);
       z-index: 1;
     }
-    .skills-section h2 {
-      font-size: 2.2rem;
-      margin-bottom: 15px;
-      position: relative;
-      z-index: 2;
-    }
+    .skills-section h2 { font-size: 2.2rem; margin-bottom: 20px; position: relative; z-index: 2; }
+    /* Espacement supplémentaire pour les sous-titres des catégories */
     .section-subtitle {
       color: #aaa;
       font-size: 1rem;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
       position: relative;
       z-index: 2;
       text-transform: uppercase;
@@ -294,72 +292,81 @@
       position: relative;
       z-index: 2;
     }
-    /* Items style (skill-item) */
-    .skill-item {
+
+    .skill-item, .card {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 30px;
       background-color: var(--card-bg);
       border-radius: 10px;
-      padding: 20px;
+      padding: 25px;
       transition: transform 0.3s, background-color 0.3s;
     }
-    .skill-item:hover {
-      background-color: rgba(255, 255, 255, 0.15);
+    .skill-item:hover, .card:hover {
+      background-color: rgba(255,255,255,0.15);
       transform: scale(var(--hover-scale));
     }
     .skill-image img {
       width: 200px;
+      height: 200px;
+      object-fit: cover;
       border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      box-shadow: var(--box-shadow);
       transition: transform 0.3s;
     }
-    .skill-image img:hover {
-      transform: scale(1.08) rotate(-2deg);
-    }
-    .skill-text {
-      flex: 1;
-      text-align: left;
-    }
-    .skill-text h3 {
-      font-size: 1.3rem;
-      color: var(--accent-color);
-      margin-bottom: 10px;
-    }
-    .skill-text p {
-      font-size: 1.05rem;
-      line-height: 1.5;
-    }
+    .skill-image img:hover { transform: scale(1.08) rotate(-2deg); }
+    .skill-text { flex: 1; text-align: left; }
+    .skill-text h3 { font-size: 1.3rem; color: var(--accent-color); margin-bottom: 10px; }
+    .skill-text p { font-size: 1.05rem; line-height: 1.5; }
     .skill-item.reverse {
       flex-direction: row-reverse;
       text-align: right;
     }
-
+    .card {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .card-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--accent-color);
+      border-radius: 50%;
+      color: #fff;
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+    .card h3 { margin-bottom: 10px; font-size: 1.3rem; color: var(--accent-color); }
+    .card ul {
+      list-style: none;
+      text-align: left;
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+    .card ul li {
+      margin-bottom: 5px;
+    }
+    
     /* =======================
-       6) TIMELINE PARCOURS
+       7) TIMELINE PARCOURS
     ======================== */
     .my-timeline {
       width: 100%;
-      padding: 60px 5%;
+      padding: 100px 5%;
       background: var(--bg-end);
       box-sizing: border-box;
       text-align: center;
       animation: fadeUp 1s ease forwards;
       opacity: 0;
     }
-    .my-timeline h2 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
-    .my-timeline p {
-      font-size: 1rem;
-      color: #ccc;
-      margin-bottom: 40px;
-    }
+    .my-timeline h2 { font-size: 2rem; margin-bottom: 20px; }
     .timeline-items {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 30px;
       max-width: 1200px;
       margin: 0 auto;
@@ -367,13 +374,13 @@
     .timeline-item {
       background: var(--card-bg);
       border-radius: 10px;
-      padding: 30px 20px;
+      padding: 25px;
       box-shadow: var(--box-shadow);
       transition: transform var(--transition-speed), box-shadow var(--transition-speed);
     }
     .timeline-item:hover {
       transform: scale(var(--hover-scale));
-      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.4);
     }
     .timeline-item .year {
       display: block;
@@ -385,7 +392,7 @@
     .timeline-item .icon {
       width: 60px;
       height: 60px;
-      margin: 0 auto 20px auto;
+      margin: 0 auto 20px;
       border-radius: 50%;
       background: var(--accent-color);
       color: #fff;
@@ -396,33 +403,83 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.2);
       transition: transform var(--transition-speed);
     }
-    .timeline-item:hover .icon {
-      transform: scale(1.1) rotate(3deg);
-    }
-    .timeline-item h3 {
-      margin-bottom: 5px;
-      font-size: 1.2rem;
-      color: #fff;
-    }
+    .timeline-item:hover .icon { transform: scale(1.1) rotate(3deg); }
+    .timeline-item h3 { margin-bottom: 5px; font-size: 1.2rem; color: #fff; }
     .timeline-item hr {
       width: 50px;
       margin: 10px auto;
       border: none;
       border-top: 2px solid rgba(255,255,255,0.2);
     }
-    .timeline-item p {
+    .timeline-item p { font-size: 0.95rem; line-height: 1.5; color: #ccc; }
+    
+    /* =======================
+       8) SECTION PROJETS (CARROUSSEL)
+    ======================== */
+    .carousel {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: var(--box-shadow);
+      height: 60vh;
+    }
+    .carousel-images {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      width: 100%;
+      height: 100%;
+    }
+    .carousel-images a {
+      flex-shrink: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .carousel-images img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .carousel-navigation {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 5px;
+      z-index: 2;
+    }
+    .nav-dot {
+      width: 10px;
+      height: 10px;
+      background-color: rgba(155, 89, 182, 0.7);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    .nav-dot:hover { transform: scale(1.2); }
+    .nav-dot.active { background-color: rgba(155, 89, 182, 1); }
+    
+    /* =======================
+       9) FOOTER
+    ======================== */
+    footer {
+      text-align: center;
+      padding: 20px 0;
       font-size: 0.95rem;
-      line-height: 1.5;
-      color: #ccc;
+      background: var(--header-bg);
+      box-shadow: var(--box-shadow);
+      margin-top: 40px;
     }
 
     /* =======================
-       7) RESPONSIVE
+       RESPONSIVE
     ======================== */
     @media (max-width: 900px) {
-      .burger-icon {
-        display: block;
-      }
+      .burger-icon { display: block; }
       .nav-menu {
         display: none;
         flex-direction: column;
@@ -439,54 +496,42 @@
         padding: 0.5rem 0;
         text-align: center;
       }
-      #menu-toggle:checked ~ .nav-menu {
-        display: flex;
-      }
-      .skill-item,
-      .skill-item.reverse {
+      #menu-toggle:checked ~ .nav-menu { display: flex; }
+      .skill-item, .card, .skill-item.reverse {
         flex-direction: column;
         text-align: center;
       }
       .skill-image img {
         width: 80%;
+        height: auto;
         margin-bottom: 1rem;
       }
-      .skill-text {
-        text-align: center;
-      }
-      .skills-section:not(:first-of-type) {
-        margin-top: 0;
-        padding-top: 80px;
-      }
+      .skill-text { text-align: center; }
+      .skills-section:not(:first-of-type) { margin-top: 0; padding-top: 80px; }
+      .carousel { height: 300px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ==================== HEADER ==================== -->
+  <!-- HEADER -->
   <header class="header">
     <a href="#home" class="logo">Maxime <span>Portfolio</span></a>
-    <!-- Checkbox burger -->
     <input type="checkbox" id="menu-toggle">
-    <label for="menu-toggle" class="burger-icon">
-      <i class="bx bx-menu"></i>
-    </label>
-
+    <label for="menu-toggle" class="burger-icon"><i class="bx bx-menu"></i></label>
     <nav class="nav-menu">
       <a href="#home">Accueil</a>
       <a href="#competences">Compétences</a>
       <a href="#parcours">Parcours</a>
       <a href="#apropos">À propos</a>
       <a href="#projets">Projets</a>
-
-      <!-- Bouton switch thème -->
       <button id="theme-btn" class="theme-toggle">
         <i class="bx bxs-moon" id="theme-icon"></i>
       </button>
     </nav>
   </header>
 
-  <!-- ==================== SECTION ACCUEIL ==================== -->
+  <!-- SECTION ACCUEIL -->
   <section class="home" id="home">
     <div class="home-container">
       <div class="home-img">
@@ -496,10 +541,7 @@
         <h1>Je m'appelle <span>Maxime</span></h1>
         <h3>À la recherche d’une alternance</h3>
         <p>
-          Passionné d’informatique, je prépare un BUT Réseaux & Télécom. 
-          Je suis actuellement en quête d’une entreprise pour un apprentissage 
-          où je pourrai renforcer mes compétences techniques et grandir 
-          professionnellement.
+          Passionné d’informatique depuis mon plus jeune âge, je prépare un BUT Réseaux & Télécom et je recherche activement une entreprise pour un apprentissage afin de développer mes compétences techniques et évoluer professionnellement.
         </p>
         <div class="social-icons">
           <a href="#"><i class="bx bxl-github"></i></a>
@@ -509,254 +551,356 @@
     </div>
   </section>
 
-  <!-- ==================== SECTION COMPÉTENCES ==================== -->
+  <!-- SECTION COMPÉTENCES -->
   <section class="skills-section" id="competences">
     <h2>Mes Compétences</h2>
-    <p class="section-subtitle">01. Savoir-être, Défauts & Savoir-faire</p>
-    
+    <p class="section-subtitle">Savoir-être</p>
     <div class="skills-container">
-      <!-- Savoir-Être (8 skill-items, alternant normal/reverse) -->
-      <!-- 1) Autonome -->
       <div class="skill-item">
         <div class="skill-image">
           <img src="img/HTML5&CSS.png" alt="Autonome">
         </div>
         <div class="skill-text">
           <h3>Autonome</h3>
-          <p>J'aime prendre des initiatives et travailler de manière indépendante.</p>
+          <p>Je prends des initiatives et travaille de façon indépendante.</p>
         </div>
       </div>
-      <!-- 2) Collaborative -->
       <div class="skill-item reverse">
         <div class="skill-image">
-          <img src="img/observation.png" alt="Collaborative">
+          <img src="img/observation.png" alt="Collaboratif">
         </div>
         <div class="skill-text">
-          <h3>Collaborative</h3>
-          <p>Apprécie le travail en équipe et le partage de connaissances.</p>
+          <h3>Collaboratif</h3>
+          <p>Je valorise le travail d’équipe et le partage des idées pour progresser ensemble.</p>
         </div>
       </div>
-      <!-- 3) Persévérant -->
       <div class="skill-item">
         <div class="skill-image">
           <img src="img/Powershell.png" alt="Persévérant">
         </div>
         <div class="skill-text">
           <h3>Persévérant</h3>
-          <p>Ne lâche pas face aux difficultés, trouve des solutions pour avancer.</p>
+          <p>Face aux obstacles, je m'efforce toujours de trouver une solution, même dans l'adversité.</p>
         </div>
       </div>
-      <!-- 4) Consciencieux -->
       <div class="skill-item reverse">
         <div class="skill-image">
           <img src="img/Linux.png" alt="Consciencieux">
         </div>
         <div class="skill-text">
           <h3>Consciencieux</h3>
-          <p>Attentif aux détails et respectueux des consignes et des normes.</p>
+          <p>Je porte une attention minutieuse aux détails afin de garantir la qualité de mon travail.</p>
         </div>
       </div>
-      <!-- 5) Respectueux -->
       <div class="skill-item">
         <div class="skill-image">
           <img src="img/Techno.png" alt="Respectueux">
         </div>
         <div class="skill-text">
           <h3>Respectueux</h3>
-          <p>Fais preuve de considération envers les autres et leur travail.</p>
+          <p>Je fais preuve de considération envers autrui et respecte toujours les idées et contributions de chacun.</p>
         </div>
       </div>
-      <!-- 6) Coopératif -->
       <div class="skill-item reverse">
         <div class="skill-image">
           <img src="img/comedy.png" alt="Coopératif">
         </div>
         <div class="skill-text">
           <h3>Coopératif</h3>
-          <p>Aime aider et contribuer au succès commun.</p>
+          <p>Je m'investis pleinement dans les projets collectifs, convaincu que l'union fait la force.</p>
         </div>
       </div>
-      <!-- 7) Passionné -->
       <div class="skill-item">
         <div class="skill-image">
           <img src="img/realite-virtuelle.png" alt="Passionné">
         </div>
         <div class="skill-text">
           <h3>Passionné</h3>
-          <p>Investi dans ce que j’entreprends, enthousiaste et curieux.</p>
+          <p>Depuis mon plus jeune âge, l’informatique me fascine et nourrit ma créativité.</p>
         </div>
       </div>
-      <!-- 8) Dynamique -->
       <div class="skill-item reverse">
         <div class="skill-image">
           <img src="img/pngegg(2).png" alt="Dynamique">
         </div>
         <div class="skill-text">
           <h3>Dynamique</h3>
-          <p>Énergie et motivation au quotidien, aime relever de nouveaux défis.</p>
+          <p>Je suis énergique, motivé et toujours prêt à relever de nouveaux défis pour progresser.</p>
         </div>
       </div>
+    </div>
 
-      <!-- Défauts (3 skill-items, alternant normal/reverse) -->
-      <!-- 1) Impatient -->
+    <p class="section-subtitle">Défauts</p>
+    <div class="skills-container">
       <div class="skill-item">
         <div class="skill-image">
           <img src="img/unnamed.png" alt="Impatient">
         </div>
         <div class="skill-text">
           <h3>Impatient</h3>
-          <p>Je veux souvent aller vite et obtenir des résultats immédiats.</p>
+          <p>J’ai tendance à vouloir des résultats immédiats, parfois sans prendre le temps d’analyser pleinement.</p>
         </div>
       </div>
-      <!-- 2) Impulsif -->
       <div class="skill-item reverse">
         <div class="skill-image">
           <img src="img/HTML5&CSS.png" alt="Impulsif">
         </div>
         <div class="skill-text">
           <h3>Impulsif</h3>
-          <p>Agis parfois sans réfléchir suffisamment, peux décider trop vite.</p>
+          <p>Il m'arrive de prendre des décisions hâtives, sans toujours peser les conséquences.</p>
         </div>
       </div>
-      <!-- 3) Obstiné -->
       <div class="skill-item">
         <div class="skill-image">
           <img src="img/observation.png" alt="Obstiné">
         </div>
         <div class="skill-text">
           <h3>Obstiné</h3>
-          <p>Peux m'accrocher fermement à mes idées, même quand il faut s'adapter.</p>
+          <p>Je m’accroche fermement à mes idées, même lorsque je dois m'adapter aux imprévus.</p>
         </div>
       </div>
+    </div>
 
-      <!-- Savoir-faire (une seule carte) -->
+    <p class="section-subtitle">Savoir-faire</p>
+    <div class="skills-container">
       <div class="skill-item reverse">
         <div class="skill-image">
-          <img src="img/Powershell.png" alt="Savoir Faire">
+          <img src="img/Powershell.png" alt="Gestion">
         </div>
         <div class="skill-text">
-          <h3>Savoir-faire</h3>
-          <p>
-            Gestion (administrative, organisationnelle, de projets…)
-          </p>
+          <h3>Gestion</h3>
+          <p>J’ai acquis de solides compétences en gestion de projets, coordination d’équipes et suivi administratif.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== SECTION PARCOURS (TIMELINE) ==================== -->
+  <!-- SECTION PARCOURS (TIMELINE) -->
   <section class="my-timeline" id="parcours">
     <h2>Mon Parcours</h2>
-    <p>02. Un aperçu de ma formation et de mes achievements</p>
-
     <div class="timeline-items">
       <div class="timeline-item">
         <span class="year">Brevet</span>
-        <div class="icon">
-          <i class="bx bxs-bookmark-star"></i>
-        </div>
+        <div class="icon"><i class="bx bxs-bookmark-star"></i></div>
         <h3>Mention Bien</h3>
         <hr/>
-        <p>Obtenu avec succès lors de mon diplôme du brevet.</p>
+        <p>J’ai obtenu mon brevet avec mention Bien, confirmant ma passion pour la technique.</p>
       </div>
       <div class="timeline-item">
         <span class="year">Bac en cours</span>
-        <div class="icon">
-          <i class="bx bxs-book-content"></i>
-        </div>
+        <div class="icon"><i class="bx bxs-book-content"></i></div>
         <h3>Bac</h3>
         <hr/>
-        <p>Actuellement en préparation de mon baccalauréat (option réseaux…)</p>
+        <p>Je prépare actuellement mon baccalauréat, option réseaux et télécoms.</p>
       </div>
       <div class="timeline-item">
         <span class="year">Permis</span>
-        <div class="icon">
-          <i class="bx bxs-car"></i>
-        </div>
+        <div class="icon"><i class="bx bxs-car"></i></div>
         <h3>En cours</h3>
         <hr/>
-        <p>Je finalise l’obtention de mon permis de conduire.</p>
+        <p>Je finalise l’obtention de mon permis de conduire pour être plus autonome dans mes déplacements.</p>
       </div>
     </div>
   </section>
 
-  <!-- ==================== SECTION À PROPOS ==================== -->
+  <!-- SECTION À PROPOS -->
   <section class="skills-section" id="apropos">
     <h2>À propos de moi</h2>
-    <p class="section-subtitle">03. Centres d'intérêt & Langues</p>
-
     <div class="skills-container">
-      <div class="skill-item">
-        <div class="skill-image">
-          <img src="img/realite-virtuelle.png" alt="Jeux vidéo">
-        </div>
-        <div class="skill-text">
-          <h3>Jeux vidéo</h3>
-          <p>Je suis un grand amateur de jeux vidéo, j'aime explorer de nouveaux univers.</p>
-        </div>
+      <div class="card">
+        <div class="card-icon"><i class="bx bxs-game"></i></div>
+        <h3>Jeux vidéo</h3>
+        <ul>
+          <li>Depuis mon enfance, les univers virtuels m'ont inspiré et motivé à créer.</li>
+        </ul>
       </div>
-
-      <!-- ... etc. Ajoute Boxe, Théâtre, etc. comme skill-items si tu veux ... -->
-
-      <!-- Langues -->
-      <div class="skill-item reverse">
-        <div class="skill-image">
-          <img src="img/HTML5&CSS.png" alt="Langues">
-        </div>
-        <div class="skill-text">
-          <h3>Langues</h3>
-          <p>
-            Anglais (plutôt bien), Allemand (notions légères ^-^)
-          </p>
-        </div>
+      <div class="card">
+        <div class="card-icon"><i class="bx bxs-car"></i></div>
+        <h3>Voitures</h3>
+        <ul>
+          <li>Passionné par la mécanique, j'adore suivre l'évolution et l'innovation automobile.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="bx bxs-theater"></i></div>
+        <h3>Théâtre</h3>
+        <ul>
+          <li>Mon expérience sur scène m'a permis de développer ma créativité et mon aisance orale.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="bx bxs-box"></i></div>
+        <h3>Boxe</h3>
+        <ul>
+          <li>La boxe m'enseigne la discipline, la rigueur et le dépassement de soi.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="bx bxs-water"></i></div>
+        <h3>Natation</h3>
+        <ul>
+          <li>J’apprécie la sensation de liberté dans l’eau et le bien-être qu’elle procure.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="bx bxs-chip"></i></div>
+        <h3>Nouvelles technologies</h3>
+        <ul>
+          <li>Curieux de nature, je suis en veille constante sur les dernières innovations en informatique.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="bx bxs-home-alt"></i></div>
+        <h3>Domotique</h3>
+        <ul>
+          <li>Automatiser l'habitat pour un confort optimal et une meilleure efficacité énergétique est ma passion.</li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- ==================== SECTION PROJETS ==================== -->
+  <!-- SECTION PROJETS (CARROUSSEL) -->
   <section class="skills-section" id="projets">
     <h2>Mes Projets</h2>
-    <p class="section-subtitle">04. Réalisations personnelles et scolaires</p>
-
-    <div class="skills-container">
-      <div class="skill-item">
-        <div class="skill-image">
-          <img src="img/pngegg(1).png" alt="Projet 1">
+    <p class="section-subtitle">Réalisations personnelles et scolaires</p>
+    <div class="carousel">
+      <div class="carousel-images" id="carouselImages">
+        <div class="carousel-item">
+          <a href="https://exemple.com/projet1" target="_blank">
+            <img src="img/calculator_PNG102230.png" alt="Projet 1">
+          </a>
         </div>
-        <div class="skill-text">
-          <h3>Mon Projet 1</h3>
-          <p>Ici, tu peux décrire un projet personnel ou scolaire que tu as mené.</p>
+        <div class="carousel-item">
+          <a href="https://exemple.com/projet2" target="_blank">
+            <img src="img/calculator.png" alt="Projet 2">
+          </a>
         </div>
-      </div>
-      <div class="skill-item reverse">
-        <div class="skill-image">
-          <img src="img/OU.webp" alt="Projet 2">
-        </div>
-        <div class="skill-text">
-          <h3>Mon Projet 2</h3>
-          <p>Une deuxième réalisation, encore plus innovante.</p>
+        <div class="carousel-item">
+          <a href="https://exemple.com/projet3" target="_blank">
+            <img src="img/image1.png" alt="Projet 3">
+          </a>
         </div>
       </div>
+      <div class="carousel-navigation" id="carouselNavigation"></div>
     </div>
   </section>
 
-  <!-- ==================== SCRIPT - SWITCH DARK/LIGHT ==================== -->
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2023 Maxime - Tous droits réservés</p>
+  </footer>
+
+  <!-- SCRIPT: DARK/LIGHT & CARROUSSEL -->
   <script>
+    // Switch Dark/Light
     const htmlEl = document.documentElement;
     const themeBtn = document.getElementById('theme-btn');
     const themeIcon = document.getElementById('theme-icon');
-
     themeBtn.addEventListener('click', () => {
-      if(htmlEl.getAttribute('data-theme') === 'dark') {
-        // Passe en clair
+      if (htmlEl.getAttribute('data-theme') === 'dark') {
         htmlEl.setAttribute('data-theme','light');
         themeIcon.classList.replace('bxs-moon','bxs-sun');
       } else {
-        // Passe en sombre
         htmlEl.setAttribute('data-theme','dark');
         themeIcon.classList.replace('bxs-sun','bxs-moon');
       }
     });
+
+    // Carousel Projets
+    document.addEventListener('DOMContentLoaded', () => {
+      const imagesContainer = document.getElementById('carouselImages');
+      const carouselItems = document.querySelectorAll('.carousel-item');
+      const navContainer = document.getElementById('carouselNavigation');
+      const totalItems = carouselItems.length;
+      let currentIndex = 0;
+      let autoSlideInterval;
+
+      // Création des points de navigation
+      carouselItems.forEach((item, index) => {
+        const dot = document.createElement('span');
+        dot.classList.add('nav-dot');
+        dot.setAttribute('data-index', index);
+        if(index === currentIndex) dot.classList.add('active');
+        dot.addEventListener('click', () => {
+          currentIndex = parseInt(dot.getAttribute('data-index'));
+          updateCarousel();
+          resetInterval();
+        });
+        navContainer.appendChild(dot);
+      });
+
+      function updateCarousel() {
+        imagesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+        document.querySelectorAll('.nav-dot').forEach((dot, index) => {
+          dot.classList.toggle('active', index === currentIndex);
+        });
+      }
+
+      function startAutoScroll() {
+        autoSlideInterval = setInterval(() => {
+          currentIndex = (currentIndex + 1) % totalItems;
+          updateCarousel();
+        }, 10000);
+      }
+
+      function resetInterval() {
+        clearInterval(autoSlideInterval);
+        startAutoScroll();
+      }
+
+      startAutoScroll();
+      updateCarousel();
+    });
   </script>
+
+  <!-- STYLE POUR LES POINTS DU CARROUSSEL -->
+  <style>
+    .carousel {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: var(--box-shadow);
+      height: 60vh;
+    }
+    .carousel-images {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      width: 100%;
+      height: 100%;
+    }
+    .carousel-item {
+      flex-shrink: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .carousel-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .carousel-navigation {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 5px;
+      z-index: 2;
+    }
+    .nav-dot {
+      width: 10px;
+      height: 10px;
+      background-color: rgba(155, 89, 182, 0.7);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    .nav-dot:hover { transform: scale(1.2); }
+    .nav-dot.active { background-color: rgba(155, 89, 182, 1); }
+  </style>
 </body>
 </html>
