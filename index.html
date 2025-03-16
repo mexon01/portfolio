@@ -23,13 +23,13 @@
   <meta property="og:description" content="Découvrez le portfolio de Maxime, étudiant passionné d'informatique à Montbéliard, en recherche d'une alternance en Réseaux & Télécom.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.wawy.fr/">
-  <meta property="og:image" content="https://www.wawy.fr/img/pdp.jpg">
+  <meta property="og:image" content="https://maxime.meloai.fr/img/pdp.jpg">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Portfolio - Maxime | Alternance Réseaux & Télécom">
   <meta name="twitter:description" content="Portfolio de Maxime, étudiant en informatique à Montbéliard, à la recherche d'une alternance.">
-  <meta name="twitter:image" content="https://www.wawy.fr/img/pdp.jpg">
+  <meta name="twitter:image" content="https://maxime.meloai.fr/img/pdp.jpg">
 
   <style>
     /* =======================
@@ -486,20 +486,6 @@
       line-height: 1.5;
       color: #ccc;
     }
-
-    /* =======================
-       13) SECTION À PROPOS
-    ======================== */
-    #apropos.skills-section {
-      /* Fond géré par le dégradé ci-dessus */
-    }
-
-    /* =======================
-       14) SECTION PROJETS (CARROUSSEL)
-    ======================== */
-    #projets.skills-section {
-      /* Fond géré par le dégradé ci-dessus */
-    }
     .carousel {
       position: relative;
       width: 100%;
@@ -609,6 +595,52 @@
       font-size: 0.95rem;
       margin-top: 0;
       background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
+    }
+
+    /* =======================
+       16) STYLE POUR LA MODALE D'EASTER EGG
+    ======================== */
+    #easterEggModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    #easterEggModal .modal-content {
+      position: relative;
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      color: var(--text-color);
+      max-width: 400px;
+      width: 90%;
+    }
+    #easterEggModal button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    #closeEasterEgg {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1rem;
+      background: transparent;
+      border: none;
+      color: var(--text-color);
+      cursor: pointer;
+    }
+    #gameArea {
+      margin-top: 20px;
+      display: none;
+      position: relative;
+      height: 150px;
     }
   </style>
 </head>
@@ -894,6 +926,22 @@
     <p>&copy; 2023 Maxime - Tous droits réservés</p>
   </footer>
 
+  <!-- MODALE EASTER EGG -->
+  <div id="easterEggModal">
+    <div class="modal-content">
+      <button id="closeEasterEgg">X</button>
+      <h2>Félicitations !</h2>
+      <p>Vous avez trouvé l'easter egg !</p>
+      <p>Cliquez sur le bouton ci-dessous pour jouer à un mini-jeu.</p>
+      <button id="easterEggGameBtn">Jouer</button>
+      <div id="gameArea">
+        <p>Cliquez sur le bouton qui bouge pour marquer des points !</p>
+        <p>Score: <span id="score">0</span></p>
+        <button id="movingBtn">Cliquez-moi !</button>
+      </div>
+    </div>
+  </div>
+
   <!-- SCRIPT: DARK/LIGHT & CARROUSSEL -->
   <script>
     // Switch Dark/Light
@@ -944,7 +992,7 @@
         autoSlideInterval = setInterval(() => {
           currentIndex = (currentIndex + 1) % totalItems;
           updateCarousel();
-        }, 10000);
+        }, 5000);
       }
 
       function resetInterval() {
@@ -957,64 +1005,69 @@
     });
   </script>
 
-  <!-- STYLE POUR LES POINTS DU CARROUSSEL -->
-  <style>
-    .carousel {
-      position: relative;
-      width: 100%;
-      max-width: 800px;
-      margin: 0 auto;
-      overflow: hidden;
-      border-radius: 10px;
-      box-shadow: var(--box-shadow);
-      height: 60vh;
-    }
-    .carousel-images {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-      width: 100%;
-      height: 100%;
-    }
-    .carousel-item {
-      flex-shrink: 0;
-      width: 100%;
-      height: 100%;
-    }
-    .carousel-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .carousel-navigation {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 8px;
-      z-index: 2;
-    }
-    .nav-dot {
-      width: 20px;
-      height: 20px;
-      background-color: rgba(155, 89, 182, 0.7);
-      border-radius: 50%;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.3s;
-    }
-    .nav-dot:hover {
-      transform: scale(1.3);
-    }
-    .nav-dot.active {
-      background-color: rgba(155, 89, 182, 1);
-    }
-    @media (max-width: 900px) {
-      .nav-dot {
-        width: 24px;
-        height: 24px;
+  <!-- SCRIPT: EASTER EGG & MINI-JEU -->
+  <script>
+    (function() {
+      const modal = document.getElementById('easterEggModal');
+      const closeBtn = document.getElementById('closeEasterEgg');
+      const gameBtn = document.getElementById('easterEggGameBtn');
+      const gameArea = document.getElementById('gameArea');
+      const movingBtn = document.getElementById('movingBtn');
+      const scoreDisplay = document.getElementById('score');
+      let score = 0;
+
+      function triggerEasterEgg() {
+        modal.style.display = 'flex';
       }
-    }
-  </style>
+
+      closeBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+        // Réinitialiser le jeu
+        gameArea.style.display = 'none';
+        gameBtn.style.display = 'inline-block';
+        score = 0;
+        scoreDisplay.textContent = score;
+        movingBtn.style.position = 'relative';
+        movingBtn.style.left = '0';
+        movingBtn.style.top = '0';
+      });
+
+      gameBtn.addEventListener('click', function() {
+        gameArea.style.display = 'block';
+        gameBtn.style.display = 'none';
+      });
+
+      movingBtn.addEventListener('click', function() {
+        score++;
+        scoreDisplay.textContent = score;
+        // Déplacer le bouton aléatoirement dans son conteneur
+        const parent = movingBtn.parentElement;
+        const parentWidth = parent.offsetWidth;
+        const parentHeight = parent.offsetHeight;
+        const btnWidth = movingBtn.offsetWidth;
+        const btnHeight = movingBtn.offsetHeight;
+        const maxLeft = parentWidth - btnWidth;
+        const maxTop = parentHeight - btnHeight;
+        movingBtn.style.position = 'absolute';
+        movingBtn.style.left = Math.random() * maxLeft + 'px';
+        movingBtn.style.top = Math.random() * maxTop + 'px';
+      });
+
+      // Détection du Konami Code
+      let konamiCode = [38,38,40,40,37,39,37,39,66,65];
+      let konamiIndex = 0;
+      document.addEventListener('keydown', function(e) {
+        if(e.keyCode === konamiCode[konamiIndex]) {
+          konamiIndex++;
+          if(konamiIndex === konamiCode.length) {
+            triggerEasterEgg();
+            konamiIndex = 0;
+          }
+        } else {
+          konamiIndex = 0;
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
