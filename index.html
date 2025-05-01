@@ -488,18 +488,17 @@
     }
     .carousel {
       position: relative;
-      width: 100%;
+      width: 90%;
       max-width: 800px;
       margin: 0 auto;
       overflow: hidden;
       border-radius: 10px;
-      box-shadow: var(--box-shadow);
-      height: 60vh;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      height: 400px;
     }
     .carousel-images {
       display: flex;
       transition: transform 0.5s ease-in-out;
-      width: 100%;
       height: 100%;
     }
     .carousel-images a {
@@ -520,21 +519,16 @@
       transform: translateX(-50%);
       display: flex;
       gap: 8px;
-      z-index: 2;
     }
     .nav-dot {
-      width: 20px;
-      height: 20px;
-      background-color: rgba(155, 89, 182, 0.7);
+      width: 12px;
+      height: 12px;
+      background-color: rgba(255, 255, 255, 0.5);
       border-radius: 50%;
       cursor: pointer;
-      transition: background-color 0.3s, transform 0.3s;
-    }
-    .nav-dot:hover {
-      transform: scale(1.3);
     }
     .nav-dot.active {
-      background-color: rgba(155, 89, 182, 1);
+      background-color: #d41be9;
     }
     @media (max-width: 900px) {
       .burger-icon {
@@ -669,7 +663,7 @@
   <section class="home" id="home">
     <div class="home-container">
       <div class="home-img">
-        <img src="img/pdp.jpg" alt="Portrait de Maxime">
+        <img src="img/pdp.png" alt="Portrait de Maxime">
       </div>
       <div class="home-content">
         <h1>Je m'appelle <span>Maxime</span></h1>
@@ -749,7 +743,7 @@
     <!-- SECTION SAVOIR-FAIRE -->
     <p class="section-subtitle savoir-faire">Savoir-faire</p>
     <div class="skills-container">
-      <div class="skill-item reverse">
+      <div class="skill-item">
         <div class="skill-image">
           <img src="img/python.png" alt="Python">
         </div>
@@ -758,7 +752,7 @@
           <p>j'ai des bases en python j'ai développer plusieurs petis projets comme une calculatrice.</p>
         </div>
       </div>
-      <div class="skill-item">
+      <div class="skill-item reverse">
         <div class="skill-image">
           <img src="img/docker.png" alt="Docker">
         </div>
@@ -767,7 +761,7 @@
           <p>j'utilise docker pour beaucoup de mes projet en particulier mon serveur.</p>
         </div>
       </div>
-      <div class="skill-item reverse">
+      <div class="skill-item">
         <div class="skill-image">
           <img src="img/web.png" alt="Langage du web">
         </div>
@@ -776,7 +770,7 @@
           <p>j'ai des bese en html et en ccs grace a ce site web</p>
         </div>
       </div>
-      <div class="skill-item">
+      <div class="skill-item reverse">
         <div class="skill-image">
           <img src="img/serveur.png" alt="Gestion d'un serveur perso">
         </div>
@@ -785,7 +779,7 @@
           <p>J'ai cré mon propre serveur pour héberger quelques services comme se site web.</p>
         </div>
       </div>
-      <div class="skill-item reverse">
+      <div class="skill-item">
         <div class="skill-image">
           <img src="img/linux.png" alt="Linux">
         </div>
@@ -867,15 +861,6 @@
       </div>
       <div class="card">
         <div class="card-icon">
-          <img src="img/swim.png" alt="Natation">
-        </div>
-        <h3>Natation</h3>
-        <ul>
-          <li>J’apprécie la sensation de liberté dans l’eau et le bien-être qu’elle procure.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <div class="card-icon">
           <img src="img/tech.png" alt="Nouvelles technologies">
         </div>
         <h3>Nouvelles technologies</h3>
@@ -898,24 +883,17 @@
   <!-- SECTION PROJETS (CARROUSSEL) -->
   <section class="skills-section" id="projets">
     <h2>Mes Projets</h2>
-    <p class="section-subtitle">Réalisations personnelles et scolaires</p>
     <div class="carousel">
       <div class="carousel-images" id="carouselImages">
-        <div class="carousel-item">
-          <a href="https://github.com/mexon01/python_calculator" target="_blank">
-            <img src="img/calculator_PNG102230.png" alt="Projet 1">
-          </a>
-        </div>
-        <div class="carousel-item">
-          <a href="https://github.com/mexon01/portfolio" target="_blank">
-            <img src="img/CV.PNG" alt="Projet 2">
-          </a>
-        </div>
-        <div class="carousel-item">
-          <a href="https://exemple.com/projet3" target="_blank">
-            <img src="img/image1.png" alt="Projet 3">
-          </a>
-        </div>
+        <a href="https://github.com/mexon01/python_calculator" target="_blank">
+          <img src="img/calculator_PNG102230.png" alt="Projet 1">
+        </a>
+        <a href="https://github.com/mexon01/portfolio" target="_blank">
+          <img src="img/CV.PNG" alt="Projet 2">
+        </a>
+        <a href="img/reseaux.png" target="_blank">
+          <img src="img/infrastructure.png" alt="Projet 3">
+        </a>
       </div>
       <div class="carousel-navigation" id="carouselNavigation"></div>
     </div>
@@ -961,7 +939,7 @@
     // Carousel Projets
     document.addEventListener('DOMContentLoaded', () => {
       const imagesContainer = document.getElementById('carouselImages');
-      const carouselItems = document.querySelectorAll('.carousel-item');
+      const carouselItems = imagesContainer.querySelectorAll('a');
       const navContainer = document.getElementById('carouselNavigation');
       const totalItems = carouselItems.length;
       let currentIndex = 0;
@@ -972,9 +950,9 @@
         const dot = document.createElement('span');
         dot.classList.add('nav-dot');
         dot.setAttribute('data-index', index);
-        if(index === currentIndex) dot.classList.add('active');
+        if (index === currentIndex) dot.classList.add('active');
         dot.addEventListener('click', () => {
-          currentIndex = parseInt(dot.getAttribute('data-index'));
+          currentIndex = index;
           updateCarousel();
           resetInterval();
         });
@@ -983,8 +961,8 @@
 
       function updateCarousel() {
         imagesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
-        document.querySelectorAll('.nav-dot').forEach((dot, index) => {
-          dot.classList.toggle('active', index === currentIndex);
+        document.querySelectorAll('.nav-dot').forEach((dot, i) => {
+          dot.classList.toggle('active', i === currentIndex);
         });
       }
 
@@ -1000,8 +978,8 @@
         startAutoScroll();
       }
 
-      startAutoScroll();
       updateCarousel();
+      startAutoScroll();
     });
   </script>
 
